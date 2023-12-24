@@ -1,0 +1,57 @@
+version: '3'
+services:
+  postgres:
+    healthcheck:
+      test: pg_isready -U ${DB_USER}
+      interval: 5s 
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - api
+    ports:
+      - 5432:5432
+    image: docker.io/postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER} 
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  mesh-fit:
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - api
+    ports:
+      - 3000:3000
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    image: mesh-fit:latest
+    env_file:
+      - .env
+
+
+
+#  nginx:
+#    depends_on:
+#      meshdb:
+#        condition: service_healthy
+#    networks:
+#      - api
+#    ports:
+#      - 8080:8080
+#    image: nginx
+#    volumes:
+#      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+#      - static_files:/var/www/html/static
+
+volumes:
+  postgres_data:
+  static_files:
+
+networks:
+  api:
