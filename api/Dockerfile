@@ -29,5 +29,5 @@ COPY --from=builder /usr/src/app/api /app/api
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 # Run the app
-EXPOSE 3000
+EXPOSE 3001
 CMD ./api
