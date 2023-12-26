@@ -6,7 +6,7 @@ import { Temporal } from '@js-temporal/polyfill'
 
 import Content from '/src/components/Content/Content'
 import Copyable from '/src/components/Copyable/Copyable'
-import { getEvent } from '/src/config/api'
+import { getEvent, getPerson } from '/src/config/api'
 import { useTranslation } from '/src/i18n/server'
 import { makeClass, relativeTimeFormat } from '/src/utils'
 
@@ -26,8 +26,13 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
   }
 }
 
-const Page = async ({ params }: PageProps) => {
+const Page = async ({ params, searchParams }: { 
+  params: PageProps, 
+  searchParams: { [key: string]: string | string[] | undefined },
+}) => {
   const event = await getEvent(params.id).catch(() => undefined)
+  const resUser = await getPerson(params.id, searchParams.uname, undefined)
+  console.log(resUser) // DEBUG
   if (!event) notFound()
 
   const { t, i18n } = await useTranslation(['common', 'event'])
@@ -48,12 +53,6 @@ const Page = async ({ params }: PageProps) => {
           title={Temporal.Instant.fromEpochSeconds(event.created_at).toLocaleString(i18n.language, { dateStyle: 'long' })}
         >{t('common:created', { date: relativeTimeFormat(Temporal.Instant.fromEpochSeconds(event.created_at), i18n.language) })}</span>
 
-        <Copyable className={styles.info}>
-          {`https://crab.fit/${event.id}`}
-        </Copyable>
-        <p className={makeClass(styles.info, styles.noPrint)}>
-          <Trans i18nKey="event:nav.shareinfo" t={t} i18n={i18n}>_<a href={`mailto:?subject=${encodeURIComponent(t('event:nav.email_subject', { event_name: event.name }))}&body=${encodeURIComponent(`${t('event:nav.email_body')} https://crab.fit/${event.id}`)}`}>_</a>_</Trans>
-        </p>
       </Content>
     </Suspense>
 
