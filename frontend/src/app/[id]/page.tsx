@@ -26,13 +26,14 @@ export const generateMetadata = async ({ params }: PageProps): Promise<Metadata>
   }
 }
 
+// Example: http://localhost:1234/testing-292407?uname=Jennifer
 const Page = async ({ params, searchParams }: { 
   params: PageProps, 
   searchParams: { [key: string]: string | string[] | undefined },
 }) => {
   const event = await getEvent(params.id).catch(() => undefined)
   const resUser = await getPerson(params.id, searchParams.uname, undefined)
-  console.log(resUser) // DEBUG
+  //console.log(resUser) // DEBUG
   if (!event) notFound()
 
   const { t, i18n } = await useTranslation(['common', 'event'])
@@ -56,7 +57,7 @@ const Page = async ({ params, searchParams }: {
       </Content>
     </Suspense>
 
-    <EventAvailabilities event={event} />
+    <EventAvailabilities event={event} urlUser={resUser} />
   </>
 }
 

@@ -23,7 +23,7 @@ interface EventAvailabilitiesProps {
   event?: EventResponse
 }
 
-const EventAvailabilities = ({ event }: EventAvailabilitiesProps) => {
+const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
   const { t, i18n } = useTranslation('event')
 
   const timeFormat = useStore(useSettingsStore, state => state.timeFormat) ?? '12h'
@@ -31,7 +31,7 @@ const EventAvailabilities = ({ event }: EventAvailabilitiesProps) => {
   const [people, setPeople] = useState<PersonResponse[]>([])
   const expandedTimes = useMemo(() => expandTimes(event?.times ?? []), [event?.times])
 
-  const [user, setUser] = useState<PersonResponse>()
+  const [user, setUser] = useState<PersonResponse>(urlUser)
   const [password, setPassword] = useState<string>()
 
   const [tab, setTab] = useState<'group' | 'you'>('group')
