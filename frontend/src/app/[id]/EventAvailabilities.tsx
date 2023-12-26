@@ -31,8 +31,10 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
   const [people, setPeople] = useState<PersonResponse[]>([])
   const expandedTimes = useMemo(() => expandTimes(event?.times ?? []), [event?.times])
 
-  const [user, setUser] = useState<PersonResponse>(urlUser)
-  const [password, setPassword] = useState<string>()
+  console.log(urlUser)
+
+  const [user, setUser] = urlUser.name === 'undefined' ? useState<PersonResponse>() : useState<PersonResponse>(urlUser)
+  const [password, setPassword] = useState<string>() // FIXME: Do we want to... remove this?
 
   const [tab, setTab] = useState<'group' | 'you'>('group')
   const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone)
