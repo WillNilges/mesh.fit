@@ -135,6 +135,7 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
       </Content>
     </Section>
 
+    {/*
     <Content>
       <div className={styles.tabs}>
         <button
@@ -163,12 +164,13 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
         >{t('tabs.group')}</button>
       </div>
     </Content>
+    */}
 
-    {tab === 'group' ? <AvailabilityViewer
+    {/*tab === 'group' ? <AvailabilityViewer
       times={expandedTimes}
       people={people}
       table={table}
-    /> : user && <AvailabilityEditor
+    /> : */user && <AvailabilityEditor
       eventId={event?.id}
       times={expandedTimes}
       timezone={timezone}
