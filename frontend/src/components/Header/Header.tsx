@@ -28,8 +28,7 @@ const Header = async ({ isFull, isSmall }: HeaderProps) => {
   return <header className={styles.header} data-small={isSmall}>
     {isFull ? <>
       {!isSmall && <img className={styles.bigLogo} src={logo.src} height={512} width={512} alt="" />}
-      <span className={makeClass(styles.subtitle, samuraiBob.className, !/^[A-Za-z ]+$/.test(t('home:create')) && styles.hasAltChars)}>{t('home:create')}</span>
-      <h1 className={makeClass(styles.bigTitle, molot.className)}>MESH FIT</h1>
+      <span className={makeClass(styles.subtitle, 'sans-serif', !/^[A-Za-z ]+$/.test(t('home:create')) && styles.hasAltChars)}>{t('home:create')}</span>
     </> : <Link href="/" className={styles.link}>
       <div className={styles.top}>
         <img className={styles.logo} src={logo.src} height={512} width={512} alt="" />
