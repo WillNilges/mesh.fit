@@ -13,22 +13,6 @@ export const calculateColumns = (dates: Temporal.ZonedDateTime[], isSpecificDate
   })).values())
     .sort(Temporal.PlainDate.compare)
 
-  // We'll only want the most recent of each weekday if this is a weekly
-  // crab.fit
-  if (!isSpecificDates) {
-    const mostRecentDates: Record<number, Temporal.PlainDate> = {};
-    sortedDates.forEach(d => {
-      
-      const weekday = d.dayOfWeek
-
-      // Check if there is already a stored ZonedDateTime for the current weekday
-      if (!mostRecentDates[weekday] || d > mostRecentDates[weekday]) {
-        mostRecentDates[weekday] = d;
-      }
-    });
-    sortedDates = Object.values(mostRecentDates);
-  }
-
   // Partition by distance
   const partitionedDates = splitArrayBy(sortedDates, (a, b) => !a.add({ days: 1 }).equals(b))
 
