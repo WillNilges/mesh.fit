@@ -13,6 +13,20 @@ export const calculateColumns = (dates: Temporal.ZonedDateTime[], isSpecificDate
   })).values())
     .sort(Temporal.PlainDate.compare)
 
+  // Dedupe days of the week
+  if (!isSpecificDates) {
+    const dayOfWeekMapping: Record<number, Temporal.PlainDate> = {};
+    sortedDates.forEach((d)  => {
+      let weekday = d.dayOfWeek
+      if (!dayOfWeekMapping[weekday]) {
+        dayOfWeekMapping[weekday] = d
+      }
+    })
+
+    sortedDates = Object.values(dayOfWeekMapping);
+  }
+
+
   // Partition by distance
   const partitionedDates = splitArrayBy(sortedDates, (a, b) => !a.add({ days: 1 }).equals(b))
 

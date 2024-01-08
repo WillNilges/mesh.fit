@@ -33,7 +33,6 @@ const Page = async ({ params, searchParams }: {
 }) => {
   const event = await getEvent(params.id).catch(() => undefined)
   const resUser = await getPerson(params.id, searchParams.uname, undefined)
-  //console.log(resUser) // DEBUG
   if (!event) notFound()
 
   const { t, i18n } = await useTranslation(['common', 'event'])
