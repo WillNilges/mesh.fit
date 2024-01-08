@@ -1,3 +1,5 @@
+use std::env;
+
 use axum::{
     extract::{self, Path},
     http::StatusCode,
@@ -6,12 +8,66 @@ use axum::{
 use common::{Adaptor, Event};
 use rand::{seq::SliceRandom, thread_rng, Rng};
 use regex::Regex;
+use slack_morphism::prelude::*;
 
 use crate::{
     errors::ApiError,
     payloads::{ApiResult, EventInput, EventResponse},
     State,
 };
+
+#[utoipa::path(
+    post,
+    path = "/event/{event_id}/post",
+    params(
+        ("event_id", description = "The ID of the event"),
+    ),
+    responses(
+        (status = 200, description = "Ok", body = EventResponse),
+        (status = 404, description = "Not found"),
+        (status = 429, description = "Too many requests"),
+    ),
+    tag = "event",
+)]
+/// Get details about an event
+pub async fn post_event<A: Adaptor>(
+    extract::State(state): State<A>,
+    Path(event_id): Path<String>,
+) -> Result<StatusCode, ApiError<A>> {
+    let adaptor = &state.lock().await.adaptor;
+
+    let event = adaptor
+        .get_event(event_id)
+        .await
+        .map_err(ApiError::AdaptorError)?;
+
+    match event {
+        Some(event) => {
+            let client = SlackClient::new(SlackClientHyperConnector::new());
+            
+            // Create our Slack API token
+            let token_value: SlackApiTokenValue = env::var("SLACK_TOKEN").unwrap().into();
+            let token: SlackApiToken = SlackApiToken::new(token_value);
+
+            // Create a Slack session with this token
+            // A session is just a lightweight wrapper around your token
+            // not to specify it all the time for series of calls.
+            let session = client.open_session(&token);
+
+            // Send a simple text message
+            let post_chat_req =
+                SlackApiChatPostMessageRequest::new("#botspam".into(),
+                       SlackMessageContent::new().with_text("Hey there!".into())
+                );
+
+            // TODO: Handle this
+            let _post_chat_resp = session.chat_post_message(&post_chat_req).await;
+
+            Ok(StatusCode::CREATED)
+        },
+        None => Err(ApiError::NotFound),
+    }
+}
 
 #[utoipa::path(
     get,
