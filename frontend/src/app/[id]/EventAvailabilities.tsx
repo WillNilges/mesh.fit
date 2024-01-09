@@ -133,42 +133,7 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
       </Content>
     </Section>
 
-    {/*
-    <Content>
-      <div className={styles.tabs}>
-        <button
-          className={makeClass(
-            styles.tab,
-            tab === 'you' && styles.tabSelected,
-            !user && styles.tabDisabled,
-          )}
-          type="button"
-          onClick={() => {
-            if (user) {
-              setTab('you')
-            } else {
-              document.dispatchEvent(new CustomEvent('focusName'))
-            }
-          }}
-          title={user ? '' : t('tabs.you_tooltip')}
-        >{t('tabs.you')}</button>
-        <button
-          className={makeClass(
-            styles.tab,
-            tab === 'group' && styles.tabSelected,
-          )}
-          type="button"
-          onClick={() => setTab('group')}
-        >{t('tabs.group')}</button>
-      </div>
-    </Content>
-    */}
-
-    {/*tab === 'group' ? <AvailabilityViewer
-      times={expandedTimes}
-      people={people}
-      table={table}
-    /> : */user && <AvailabilityEditor
+    {user && <AvailabilityEditor
       eventId={event?.id}
       times={expandedTimes}
       timezone={timezone}

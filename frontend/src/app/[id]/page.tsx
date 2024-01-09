@@ -14,16 +14,6 @@ import EventAvailabilities from './EventAvailabilities'
 import styles from './page.module.scss'
 import Button from '/src/components/Button/Button'
 
-function postToSlack(eventID: string) {
-  console.log("Ay yo?")
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "https://127.0.0.1:3000/event/" + eventID + "/post", true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify({
-      value: ""
-  }));
-}
-
 interface PageProps {
   params: { id: string }
 }
@@ -68,16 +58,6 @@ const Page = async ({ params, searchParams }: {
     </Suspense>
 
     <EventAvailabilities event={event} urlUser={resUser} />
-
-    <div className={styles.buttonWrapper}>
-      <Button
-        type="submit"
-        onSubmit={postToSlack(event.id)}
-        //isLoading={isLoading}
-        //disabled={isLoading}
-        //style={noRedirect ? { width: '100%' } : undefined}
-      >{t('form.button')}</Button>
-    </div>
   </>
 }
 
