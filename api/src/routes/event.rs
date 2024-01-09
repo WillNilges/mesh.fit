@@ -33,7 +33,7 @@ use crate::{
 pub async fn post_event<A: Adaptor>(
     extract::State(state): State<A>,
     Path(event_id): Path<String>,
-) -> Result<StatusCode, ApiError<A>> {
+) -> Result<(StatusCode, Json<String>), ApiError<A>> {
     let adaptor = &state.lock().await.adaptor;
 
     let event = adaptor
@@ -63,7 +63,7 @@ pub async fn post_event<A: Adaptor>(
             // TODO: Handle this
             let _post_chat_resp = session.chat_post_message(&post_chat_req).await;
 
-            Ok(StatusCode::CREATED)
+            Ok((StatusCode::CREATED, Json("".to_string())))
         },
         None => Err(ApiError::NotFound),
     }

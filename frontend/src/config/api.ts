@@ -43,8 +43,8 @@ export const StatsResponse = z.object({
 })
 export type StatsResponse = z.infer<typeof StatsResponse>
 
-export const SlackResponse = z.object({})
-export type SlackResponse = z.infer<typeof PersonResponse>
+export const SlackResponse = z.string()
+export type SlackResponse = z.infer<typeof SlackResponse>
 
 const get = async <S extends z.Schema>(url: string, schema: S, auth?: string, nextOptions?: NextFetchRequestConfig): Promise<ReturnType<S['parse']>> => {
   const res = await fetch(new URL(url, API_BASE), {

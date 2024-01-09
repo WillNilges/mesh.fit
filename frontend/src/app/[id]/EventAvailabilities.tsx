@@ -19,16 +19,11 @@ import { calculateTable, expandTimes, makeClass } from '/src/utils'
 
 import styles from './page.module.scss'
 import Button from '/src/components/Button/Button'
+import SlackButton from './slack'
 
 interface EventAvailabilitiesProps {
   event?: EventResponse
 }
-
-
-const sendToSlack = async (eventId: string) => {
-  console.log("Sending to Slack.")
-  postToSlack(eventId)
-};
 
 const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
   const { t, i18n } = useTranslation('event')
@@ -167,11 +162,9 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
       table={table}
     />}
 
-    {<Button
-        onClick={sendToSlack(event?.id)} // FIXME: Why is event undefined!? Why does this function fire when the page loads!?
-      >{t('form.button')}
-      </Button>
-    }
+    {<SlackButton
+      eventId={event.id}
+    />}
   </>
 }
 
