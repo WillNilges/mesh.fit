@@ -162,9 +162,18 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
       table={table}
     />}
 
-    {<SlackButton
-      eventId={event.id}
-    />}
+    {
+      <Button
+        onClick={(e:any) => {
+          try {
+            console.log("Sending to Slack.")
+            postToSlack(event?.id)
+          } catch (e) {
+              console.error(e)
+          }
+        }}
+      ></Button>
+    }
   </>
 }
 
