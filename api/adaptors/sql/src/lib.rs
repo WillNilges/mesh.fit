@@ -114,6 +114,8 @@ impl Adaptor for SqlAdaptor {
     async fn create_event(&self, event: Event) -> Result<Event, Self::Error> {
         Ok(event::ActiveModel {
             id: Set(event.id),
+            install_number: Set(event.install_number),
+            member_response: Set(event.member_response),
             name: Set(event.name),
             created_at: Set(event.created_at.naive_utc()),
             visited_at: Set(event.visited_at.naive_utc()),
@@ -213,6 +215,8 @@ impl From<event::Model> for Event {
     fn from(value: event::Model) -> Self {
         Self {
             id: value.id,
+            install_number: value.install_number,
+            member_response: value.member_response,
             name: value.name,
             created_at: DateTime::<Utc>::from_utc(value.created_at, Utc),
             visited_at: DateTime::<Utc>::from_utc(value.visited_at, Utc),

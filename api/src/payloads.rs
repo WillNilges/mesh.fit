@@ -10,6 +10,7 @@ pub type ApiResult<T, A> = Result<Json<T>, ApiError<A>>;
 #[derive(Deserialize, ToSchema)]
 pub struct EventInput {
     pub name: Option<String>,
+    pub install_number: Option<String>,
     pub times: Vec<String>,
     pub timezone: String,
 }

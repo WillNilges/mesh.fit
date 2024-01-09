@@ -125,6 +125,12 @@ pub async fn create_event<A: Adaptor>(
         _ => generate_name(),
     };
 
+    // Optionally have an install number
+    let install_number = match input.install_number {
+        Some(x) => x,
+        _ => "".to_string(),
+    };
+
     // Generate an ID
     let mut id = generate_id(&name);
 
@@ -141,6 +147,8 @@ pub async fn create_event<A: Adaptor>(
     let event = adaptor
         .create_event(Event {
             id,
+            install_number,
+            member_response: false,
             name,
             created_at: now,
             visited_at: now,
