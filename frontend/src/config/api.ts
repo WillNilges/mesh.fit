@@ -43,6 +43,9 @@ export const StatsResponse = z.object({
 })
 export type StatsResponse = z.infer<typeof StatsResponse>
 
+export const SlackResponse = z.object({})
+export type SlackResponse = z.infer<typeof PersonResponse>
+
 const get = async <S extends z.Schema>(url: string, schema: S, auth?: string, nextOptions?: NextFetchRequestConfig): Promise<ReturnType<S['parse']>> => {
   const res = await fetch(new URL(url, API_BASE), {
     headers: {
@@ -78,3 +81,4 @@ export const getPerson = (eventId: string, personName: string, password?: string
 // Post
 export const createEvent = (input: EventInput) => post('/event', EventResponse, EventInput.parse(input))
 export const updatePerson = (eventId: string, personName: string, input: PersonInput, password?: string) => post(`/event/${eventId}/people/${personName}`, PersonResponse, PersonInput.parse(input), password && btoa(password), 'PATCH')
+export const postToSlack = (eventId: string) => post(`/event/${eventId}/post`, SlackResponse, undefined)

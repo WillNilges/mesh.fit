@@ -9,7 +9,7 @@ import Content from '/src/components/Content/Content'
 import Login from '/src/components/Login/Login'
 import Section from '/src/components/Section/Section'
 import SelectField from '/src/components/SelectField/SelectField'
-import { EventResponse, getPeople, PersonResponse, updatePerson } from '/src/config/api'
+import { EventResponse, getPeople, PersonResponse, postToSlack, updatePerson } from '/src/config/api'
 import { useTranslation } from '/src/i18n/client'
 import timezones from '/src/res/timezones.json'
 import { useStore } from '/src/stores'
@@ -18,10 +18,17 @@ import useSettingsStore from '/src/stores/settingsStore'
 import { calculateTable, expandTimes, makeClass } from '/src/utils'
 
 import styles from './page.module.scss'
+import Button from '/src/components/Button/Button'
 
 interface EventAvailabilitiesProps {
   event?: EventResponse
 }
+
+
+const sendToSlack = async (eventId: string) => {
+  console.log("Sending to Slack.")
+  postToSlack(eventId)
+};
 
 const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
   const { t, i18n } = useTranslation('event')
@@ -159,6 +166,12 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
       }}
       table={table}
     />}
+
+    {<Button
+        onClick={sendToSlack(event?.id)} // FIXME: Why is event undefined!? Why does this function fire when the page loads!?
+      >{t('form.button')}
+      </Button>
+    }
   </>
 }
 

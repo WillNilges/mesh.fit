@@ -6,7 +6,7 @@ import { Temporal } from '@js-temporal/polyfill'
 
 import Content from '/src/components/Content/Content'
 import Copyable from '/src/components/Copyable/Copyable'
-import { getEvent, getPerson } from '/src/config/api'
+import { getEvent, getPerson, postToSlack } from '/src/config/api'
 import { useTranslation } from '/src/i18n/server'
 import { makeClass, relativeTimeFormat } from '/src/utils'
 
