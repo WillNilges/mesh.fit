@@ -5,8 +5,6 @@ import styles from './page.module.scss'
 import { postToSlack } from '/src/config/api';
 import Button from '/src/components/Button/Button';
 
-
-
 interface SlackButtonProps {
     eventId: string
 }

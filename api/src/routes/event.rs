@@ -44,20 +44,16 @@ pub async fn post_event<A: Adaptor>(
     match event {
         Some(event) => {
             let client = SlackClient::new(SlackClientHyperConnector::new());
-            
-            // Create our Slack API token
             let token_value: SlackApiTokenValue = env::var("SLACK_TOKEN").unwrap().into();
             let token: SlackApiToken = SlackApiToken::new(token_value);
-
-            // Create a Slack session with this token
-            // A session is just a lightweight wrapper around your token
-            // not to specify it all the time for series of calls.
             let session = client.open_session(&token);
+
+            let alert_text = format!("New Service Requested. Member Availability: <http://{}/{}>", env::var("FRONTEND_URL").unwrap(), event.id);
 
             // Send a simple text message
             let post_chat_req =
                 SlackApiChatPostMessageRequest::new("#botspam".into(),
-                       SlackMessageContent::new().with_text("Hey there!".into())
+                       SlackMessageContent::new().with_text(alert_text.into())
                 );
 
             // TODO: Handle this
