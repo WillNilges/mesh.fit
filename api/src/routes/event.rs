@@ -29,7 +29,8 @@ use crate::{
     ),
     tag = "event",
 )]
-/// Get details about an event
+/// Post about event on Slack. 
+/// TODO: This should probably get its own file
 pub async fn post_event<A: Adaptor>(
     extract::State(state): State<A>,
     Path(event_id): Path<String>,

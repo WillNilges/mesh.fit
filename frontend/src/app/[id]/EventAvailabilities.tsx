@@ -166,7 +166,7 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
       <Button
         onClick={(e:any) => {
           try {
-            console.log("Sending to Slack.")
+            console.log("Sending to Slack...")
             postToSlack(event?.id)
           } catch (e) {
               console.error(e)
