@@ -40,11 +40,16 @@ pub async fn post_event<A: Adaptor>(
         .map_err(ApiError::AdaptorError)?;
 
     match event {
-        Some(event) => {
+        Some(mut event) => {
+            // Bail if the member has already sent a request
             if event.member_response {
                 return Err(ApiError::BadRequest)
             } else {
-
+                event.member_response = true;
+                adaptor
+                    .create_event(event.clone())
+                    .await
+                    .map_err(ApiError::AdaptorError)?;
             }
 
             let client = SlackClient::new(SlackClientHyperConnector::new());
