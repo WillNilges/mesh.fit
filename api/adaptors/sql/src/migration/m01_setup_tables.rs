@@ -34,6 +34,8 @@ impl MigrationTrait for Migration {
                     .table(Event::Table)
                     .if_not_exists()
                     .col(ColumnDef::new(Event::Id).string().not_null().primary_key())
+                    .col(ColumnDef::new(Event::InstallNumber).string().not_null())
+                    .col(ColumnDef::new(Event::MemberResponse).boolean().not_null())
                     .col(ColumnDef::new(Event::Name).string().not_null())
                     .col(ColumnDef::new(Event::CreatedAt).timestamp().not_null())
                     .col(ColumnDef::new(Event::VisitedAt).timestamp().not_null())
@@ -104,6 +106,8 @@ enum Stats {
 enum Event {
     Table,
     Id,
+    InstallNumber,
+    MemberResponse,
     Name,
     CreatedAt,
     VisitedAt,
