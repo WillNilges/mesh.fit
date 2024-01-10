@@ -19,7 +19,6 @@ import { calculateTable, expandTimes, makeClass } from '/src/utils'
 
 import styles from './page.module.scss'
 import Button from '/src/components/Button/Button'
-import SlackButton from './slack'
 
 interface EventAvailabilitiesProps {
   event?: EventResponse
@@ -163,16 +162,22 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
     />}
 
     {
-      <Button
-        onClick={(e:any) => {
-          try {
-            console.log("Sending to Slack...")
-            postToSlack(event?.id)
-          } catch (e) {
-              console.error(e)
-          }
-        }}
-      ></Button>
+      user && <div className={styles.buttonWrapper}>
+        <Button
+          onClick={(e:any) => {
+            if (event) {
+              try {
+                console.log("Sending to Slack...")
+                postToSlack(event?.id)
+              } catch (e) {
+                  console.error(e)
+              }
+            }
+          }}
+          isLoading={event?.id === undefined}
+          disabled={event?.id === undefined}
+        >{t('form.slack')}</Button>
+      </div>
     }
   </>
 }
