@@ -85,7 +85,7 @@ async fn main() {
         .route("/event", post(event::create_event))
         .route("/event/:event_id", get(event::get_event))
         .route("/event/:event_id/people", get(person::get_people))
-        .route("/event/:event_id/post", post(event::post_event))
+        .route("/event/:event_id/post", post(slack::post_event))
         .route(
             "/event/:event_id/people/:person_name",
             get(person::get_person),

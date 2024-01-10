@@ -4,6 +4,7 @@ use common::Adaptor;
 pub enum ApiError<A: Adaptor> {
     AdaptorError(A::Error),
     NotFound,
+    BadRequest,
     NotAuthorized,
 }
 
@@ -15,6 +16,7 @@ impl<A: Adaptor> IntoResponse for ApiError<A> {
                 tracing::error!(?e);
                 StatusCode::INTERNAL_SERVER_ERROR.into_response()
             }
+            ApiError::BadRequest => StatusCode::BAD_REQUEST.into_response(),
             ApiError::NotFound => StatusCode::NOT_FOUND.into_response(),
             ApiError::NotAuthorized => StatusCode::UNAUTHORIZED.into_response(),
         }
