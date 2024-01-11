@@ -1,28 +1,23 @@
-import { Metadata } from 'next'
-
 import Content from '/src/components/Content/Content'
 import CreateForm from '/src/components/CreateForm/CreateForm'
+import Footer from '/src/components/Footer/Footer'
 import Header from '/src/components/Header/Header'
+import { useTranslation } from '/src/i18n/server'
 
-import Redirect from './Redirect'
+const Page = async () => {
+  const { t, i18n } = await useTranslation('home')
 
-export const metadata: Metadata = {
-  title: 'Schedule Service',
+  return <>
+    <Content>
+      <Header isFull />
+    </Content>
+
+    <Content>
+      <CreateForm />
+    </Content>
+
+    <Footer />
+  </>
 }
-
-/**
- * Used in the Crab Fit browser extension, to be rendered only in an iframe
- */
-const Page = async () => <>
-  <Content isSlim>
-    <Header isFull isSmall />
-  </Content>
-
-  <Content isSlim>
-    <CreateForm noRedirect />
-  </Content>
-
-  <Redirect />
-</>
 
 export default Page

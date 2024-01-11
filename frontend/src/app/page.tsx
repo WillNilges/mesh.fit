@@ -1,33 +1,21 @@
-import { Suspense } from 'react'
-import { Trans } from 'react-i18next/TransWithoutContext'
-import Link from 'next/link'
+import { Metadata } from 'next'
 
-import Content from '/src/components/Content/Content'
-import CreateForm from '/src/components/CreateForm/CreateForm'
-import DownloadButtons from '/src/components/DownloadButtons/DownloadButtons'
-import Footer from '/src/components/Footer/Footer'
-import Header from '/src/components/Header/Header'
-import { P } from '/src/components/Paragraph/Text'
-import Recents from '/src/components/Recents/Recents'
-import Section from '/src/components/Section/Section'
-import Stats from '/src/components/Stats/Stats'
-import Video from '/src/components/Video/Video'
-import { useTranslation } from '/src/i18n/server'
+import Redirect from './Redirect'
+import { P } from '../components/Paragraph/Text'
 
-const Page = async () => {
-  const { t, i18n } = await useTranslation('home')
-
-  return <>
-    <Content>
-      <Header isFull />
-    </Content>
-
-    <Content>
-      <CreateForm />
-    </Content>
-
-    <Footer />
-  </>
+export const metadata: Metadata = {
+  title: 'Schedule Service',
 }
 
+const Page = async () => <>
+  <P>
+    Hello! It seems you've found our scheduling system. If you would like to
+    schedule service, please ask in #support. Thanks, and have a nice day 🙂
+  </P>
+  <Redirect />
+</>
+
 export default Page
+
+
+
