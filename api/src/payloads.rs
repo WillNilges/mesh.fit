@@ -18,24 +18,26 @@ pub struct EventInput {
 #[derive(Serialize, ToSchema)]
 pub struct EventResponse {
     pub id: String,
-    pub install_number: String,
-    pub member_response: bool,
     pub name: String,
     pub times: Vec<String>,
     pub timezone: String,
     pub created_at: i64,
+    pub install_number: String,
+    pub member_response: bool,
+    pub slack_link: String,
 }
 
 impl From<Event> for EventResponse {
     fn from(value: Event) -> Self {
         Self {
             id: value.id,
-            install_number: value.install_number,
-            member_response: value.member_response,
             name: value.name,
             times: value.times,
             timezone: value.timezone,
             created_at: value.created_at.timestamp(),
+            install_number: value.install_number,
+            member_response: value.member_response,
+            slack_link: value.slack_link,
         }
     }
 }

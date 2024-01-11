@@ -94,13 +94,14 @@ pub async fn create_event<A: Adaptor>(
     let event = adaptor
         .create_event(Event {
             id,
-            install_number,
-            member_response: false,
             name,
             created_at: now,
             visited_at: now,
             times: input.times,
             timezone: input.timezone,
+            install_number,
+            member_response: false,
+            slack_link: "".to_string(),
         })
         .await
         .map_err(ApiError::AdaptorError)?;

@@ -46,6 +46,8 @@ pub async fn post_event<A: Adaptor>(
                 return Err(ApiError::BadRequest)
             } else {
                 event.member_response = true;
+
+                // Apparently create_event also works for updating.
                 adaptor
                     .create_event(event.clone())
                     .await

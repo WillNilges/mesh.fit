@@ -232,12 +232,13 @@ struct DatastoreStats {
 #[derive(FromValue, IntoValue, Clone)]
 struct DatastoreEvent {
     name: String,
-    install_number: String,
-    member_response: bool,
     created: i64,
     visited: i64,
     times: Vec<String>,
     timezone: String,
+    install_number: String,
+    member_response: bool,
+    slack_link: String,
 }
 
 #[derive(FromValue, IntoValue)]
@@ -277,12 +278,13 @@ impl From<Event> for DatastoreEvent {
     fn from(value: Event) -> Self {
         Self {
             name: value.name,
-            install_number: value.install_number,
-            member_response: value.member_response,
             created: value.created_at.timestamp(),
             visited: value.visited_at.timestamp(),
             times: value.times,
             timezone: value.timezone,
+            install_number: value.install_number,
+            member_response: value.member_response,
+            slack_link: value.slack_link,
         }
     }
 }
@@ -291,13 +293,14 @@ impl DatastoreEvent {
     fn to_event(&self, event_id: String) -> Event {
         Event {
             id: event_id,
-            install_number: self.install_number.clone(),
-            member_response: self.member_response,
             name: self.name.clone(),
             created_at: unix_to_date(self.created),
             visited_at: unix_to_date(self.visited),
             times: self.times.clone(),
             timezone: self.timezone.clone(),
+            install_number: self.install_number.clone(),
+            member_response: self.member_response,
+            slack_link: self.slack_link.clone(),
         }
     }
 }
