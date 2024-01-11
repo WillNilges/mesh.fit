@@ -101,7 +101,7 @@ pub async fn create_event<A: Adaptor>(
             timezone: input.timezone,
             install_number,
             member_response: false,
-            slack_link: "".to_string(),
+            slack_ts: "".to_string(),
         })
         .await
         .map_err(ApiError::AdaptorError)?;

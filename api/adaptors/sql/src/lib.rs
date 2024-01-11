@@ -121,7 +121,7 @@ impl Adaptor for SqlAdaptor {
             timezone: Set(event.timezone),
             install_number: Set(event.install_number),
             member_response: Set(event.member_response),
-            slack_link: Set(event.slack_link),
+            slack_ts: Set(event.slack_ts),
         }
         .insert(&self.db)
         .await?
@@ -223,7 +223,7 @@ impl From<event::Model> for Event {
             timezone: value.timezone,
             install_number: value.install_number,
             member_response: value.member_response,
-            slack_link: value.slack_link,
+            slack_ts: value.slack_ts,
         }
     }
 }

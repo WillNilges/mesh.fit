@@ -14,7 +14,7 @@ pub struct Model {
     pub timezone: String,
     pub install_number: String,
     pub member_response: bool,
-    pub slack_link: String,
+    pub slack_ts: String,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]

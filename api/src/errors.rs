@@ -5,6 +5,7 @@ pub enum ApiError<A: Adaptor> {
     AdaptorError(A::Error),
     NotFound,
     BadRequest,
+    InternalServerError,
     NotAuthorized,
 }
 
@@ -17,6 +18,7 @@ impl<A: Adaptor> IntoResponse for ApiError<A> {
                 StatusCode::INTERNAL_SERVER_ERROR.into_response()
             }
             ApiError::BadRequest => StatusCode::BAD_REQUEST.into_response(),
+            ApiError::InternalServerError => StatusCode::INTERNAL_SERVER_ERROR.into_response(),
             ApiError::NotFound => StatusCode::NOT_FOUND.into_response(),
             ApiError::NotAuthorized => StatusCode::UNAUTHORIZED.into_response(),
         }

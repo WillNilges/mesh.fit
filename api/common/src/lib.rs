@@ -45,7 +45,7 @@ pub struct Event {
     pub timezone: String,
     pub install_number: String,
     pub member_response: bool,
-    pub slack_link: String,
+    pub slack_ts: String,
 }
 
 #[derive(Clone)]

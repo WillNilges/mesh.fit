@@ -44,14 +44,6 @@ pub async fn post_event<A: Adaptor>(
             // Bail if the member has already sent a request
             if event.member_response {
                 return Err(ApiError::BadRequest)
-            } else {
-                event.member_response = true;
-
-                // Apparently create_event also works for updating.
-                adaptor
-                    .create_event(event.clone())
-                    .await
-                    .map_err(ApiError::AdaptorError)?;
             }
 
             let client = SlackClient::new(SlackClientHyperConnector::new());
@@ -68,9 +60,27 @@ pub async fn post_event<A: Adaptor>(
                 );
 
             // TODO: Handle this
-            let _post_chat_resp = session.chat_post_message(&post_chat_req).await;
+            let post_chat_resp = session.chat_post_message(&post_chat_req).await;
 
-            Ok((StatusCode::CREATED, Json("".to_string())))
+            match post_chat_resp {
+                Ok(r) => {
+                    // Note that we've got a response, and save the timestamp
+                    event.member_response = true;
+                    event.slack_ts = r.ts.to_string();
+
+                    // Apparently create_event also works for updating.
+                    adaptor
+                        .create_event(event.clone())
+                        .await
+                        .map_err(ApiError::AdaptorError)?;
+
+                    Ok((StatusCode::CREATED, Json("".to_string())))
+                },
+                Err(e) => {
+                    eprintln!("{}", e);
+                    Err(ApiError::InternalServerError)
+                },
+            }
         },
         None => Err(ApiError::NotFound),
     }

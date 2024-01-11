@@ -24,7 +24,7 @@ pub struct EventResponse {
     pub created_at: i64,
     pub install_number: String,
     pub member_response: bool,
-    pub slack_link: String,
+    pub slack_ts: String,
 }
 
 impl From<Event> for EventResponse {
@@ -37,7 +37,7 @@ impl From<Event> for EventResponse {
             created_at: value.created_at.timestamp(),
             install_number: value.install_number,
             member_response: value.member_response,
-            slack_link: value.slack_link,
+            slack_ts: value.slack_ts,
         }
     }
 }

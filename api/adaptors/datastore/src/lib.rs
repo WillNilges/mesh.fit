@@ -238,7 +238,7 @@ struct DatastoreEvent {
     timezone: String,
     install_number: String,
     member_response: bool,
-    slack_link: String,
+    slack_ts: String,
 }
 
 #[derive(FromValue, IntoValue)]
@@ -284,7 +284,7 @@ impl From<Event> for DatastoreEvent {
             timezone: value.timezone,
             install_number: value.install_number,
             member_response: value.member_response,
-            slack_link: value.slack_link,
+            slack_ts: value.slack_ts,
         }
     }
 }
@@ -300,7 +300,7 @@ impl DatastoreEvent {
             timezone: self.timezone.clone(),
             install_number: self.install_number.clone(),
             member_response: self.member_response,
-            slack_link: self.slack_link.clone(),
+            slack_ts: self.slack_ts.clone(),
         }
     }
 }
