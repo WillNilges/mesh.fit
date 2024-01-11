@@ -3,7 +3,7 @@
   "recently_visited": "Recently visited",
   "form": {
     "name": {
-      "label": "Give your event a name!",
+      "label": "Event name",
       "sublabel": "Or leave blank to generate one"
     },
     "dates": {

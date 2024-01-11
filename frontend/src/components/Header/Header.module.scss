@@ -73,9 +73,9 @@
   font-size: 3rem;
   text-align: center;
   font-weight: 400;
-  color: var(--secondary);
+  color: var(--text);
   line-height: 1em;
-  text-transform: uppercase;
+  // text-transform: uppercase;
 
   [data-small=true] & {
     font-size: 2rem;
