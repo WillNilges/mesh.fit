@@ -40,7 +40,7 @@
   --font-weight: var(--font-weight-light);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: var(--background-dark);
     --text: var(--text-dark);

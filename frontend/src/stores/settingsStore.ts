@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 type TimeFormat = '12h' | '24h'
-type Theme = 'Light' | 'System' | 'Dark'
+type Theme = 'Light'
 
 interface SettingsStore {
   /** 0: Sunday, 1: Monday */

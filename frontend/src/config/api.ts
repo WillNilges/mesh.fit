@@ -59,6 +59,7 @@ const get = async <S extends z.Schema>(url: string, schema: S, auth?: string, ne
 }
 
 const post = async <S extends z.Schema>(url: string, schema: S, input: unknown, auth?: string, method = 'POST'): Promise<ReturnType<S['parse']>> => {
+  console.log(input)
   const res = await fetch(new URL(url, API_BASE), {
     method,
     headers: {

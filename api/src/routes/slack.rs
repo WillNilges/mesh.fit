@@ -51,7 +51,7 @@ pub async fn post_event<A: Adaptor>(
             let token: SlackApiToken = SlackApiToken::new(token_value);
             let session = client.open_session(&token);
 
-            let alert_text = format!("New Service Requested. Member Availability: <http://{}/{}>", env::var("FRONTEND_URL").unwrap(), event.id);
+            let alert_text = format!("New Service Requested. Member Availability: <http://{}/volunteer/{}>", env::var("FRONTEND_URL").unwrap(), event.id);
 
             // Send a simple text message
             let post_chat_req =
