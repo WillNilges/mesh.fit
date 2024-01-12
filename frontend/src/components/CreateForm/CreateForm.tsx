@@ -33,8 +33,8 @@ interface Fields {
 
 const defaultValues: Fields = {
   name: '',
-  dates: [],
-  time: { start: 9, end: 17 },
+  dates: ['7', '1', '2', '3', '4', '5', '6'],
+  time: { start: 8, end: 20 },
   timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 }
 

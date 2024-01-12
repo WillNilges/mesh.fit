@@ -23,7 +23,7 @@ const CalendarField = <TValues extends FieldValues>({
 
   const { field } = useController(props)
 
-  const [type, setType] = useState<'specific' | 'week'>('specific')
+  const [type, setType] = useState<'specific' | 'week'>('week')
 
   const [innerValue, setInnerValue] = useState({
     specific: [],

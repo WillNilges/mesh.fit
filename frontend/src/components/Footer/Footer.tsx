@@ -5,6 +5,7 @@ import { useTranslation } from '/src/i18n/server'
 import { makeClass } from '/src/utils'
 
 import styles from './Footer.module.scss'
+import { P } from '../Paragraph/Text'
 
 interface FooterProps {
   isSmall?: boolean
@@ -12,9 +13,9 @@ interface FooterProps {
 
 const Footer = async ({ isSmall }: FooterProps) => {
   const { t } = await useTranslation('common')
-  const isRunningInApp = headers().get('referer')?.includes('android-app://fit.crab')
-
-  return null
+  return <>
+    <br></br>
+  </>
 }
 
 export default Footer

@@ -69,7 +69,7 @@ const Login = ({ eventId, user, onChange }: LoginProps) => {
 
   return user ? <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', margin: '20px 0', flexWrap: 'wrap', gap: '10px' }}>
     <h2 style={{ margin: 0 }}>{t('form.signed_in', { name: user.name })}</h2>
-    <Button isSmall onClick={() => onChange(undefined)}>{t('form.logout_button')}</Button>
+    {/* <Button isSmall onClick={() => onChange(undefined)}>{t('form.logout_button')}</Button> */}
   </div> : <>
     <h2>{t('form.signed_out')}</h2>
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

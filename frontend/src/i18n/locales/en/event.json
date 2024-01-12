@@ -12,7 +12,7 @@
   },
   "form": {
     "signed_out": "Sign in to add your availability",
-    "signed_in": "Signed in as {{name}}",
+    "signed_in": "Hello, {{name}}. When are you free?",
 
     "name": "Your name",
     "password": "Password (optional)",

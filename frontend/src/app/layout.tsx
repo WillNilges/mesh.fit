@@ -38,7 +38,7 @@ const RootLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return <html lang={resolvedLanguage ?? fallbackLng}>
     <body className={karla.className}>
-      <Settings />
+      {/* <Settings /> */}
       <Egg />
       <TranslateDialog />
 

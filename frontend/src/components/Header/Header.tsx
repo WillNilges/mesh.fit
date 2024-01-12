@@ -25,12 +25,11 @@ const Header = async ({ isFull, isSmall }: HeaderProps) => {
     {isFull ? <>
       {!isSmall && <img className={styles.bigLogo} src={logo.src} height={512} width={512} alt="" />}
       <span className={makeClass(styles.subtitle, roboto.className, !/^[A-Za-z ]+$/.test(t('home:create')) && styles.hasAltChars)}>{t('home:create')}</span>
-    </> : <Link href="/" className={styles.link}>
+    </> : 
       <div className={styles.top}>
         <img className={styles.logo} src={logo.src} height={512} width={512} alt="" />
         <span className={makeClass(styles.subtitle, roboto.className)}>Schedule Service</span>
-      </div>
-    </Link>}
+      </div>}
   </header>
 }
 
