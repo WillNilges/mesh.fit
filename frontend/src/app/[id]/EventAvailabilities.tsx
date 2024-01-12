@@ -169,6 +169,8 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
               try {
                 console.log("Sending to Slack...")
                 postToSlack(event?.id)
+                alert("Availability Submitted! Somebody will be in touch shortly :)")
+                window.location.replace("http://nycmesh.net")
               } catch (e) {
                   console.error(e)
               }

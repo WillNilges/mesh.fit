@@ -10,7 +10,7 @@ import { getEvent, getPerson, postToSlack } from '/src/config/api'
 import { useTranslation } from '/src/i18n/server'
 import { makeClass, relativeTimeFormat } from '/src/utils'
 
-import EventAvailabilities from './EventAvailabilities'
+import VolunteerViewer from './VolunteerViewer'
 import styles from './page.module.scss'
 import Button from '/src/components/Button/Button'
 
@@ -57,7 +57,7 @@ const Page = async ({ params, searchParams }: {
       </Content>
     </Suspense>
 
-    <EventAvailabilities event={event} urlUser={resUser} />
+    <VolunteerViewer event={event} urlUser={resUser} />
   </>
 }
 

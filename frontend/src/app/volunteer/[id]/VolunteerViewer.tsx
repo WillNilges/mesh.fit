@@ -20,11 +20,11 @@ import { calculateTable, expandTimes, makeClass } from '/src/utils'
 import styles from './page.module.scss'
 import Button from '/src/components/Button/Button'
 
-interface EventAvailabilitiesProps {
+interface VolunteerViewerProps {
   event?: EventResponse
 }
 
-const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
+const VolunteerViewer = ({ event, urlUser }: VolunteerViewerProps) => {
   const { t, i18n } = useTranslation('event')
 
   const timeFormat = useStore(useSettingsStore, state => state.timeFormat) ?? '12h'
@@ -90,4 +90,4 @@ const EventAvailabilities = ({ event, urlUser }: EventAvailabilitiesProps) => {
   </>
 }
 
-export default EventAvailabilities
+export default VolunteerViewer
